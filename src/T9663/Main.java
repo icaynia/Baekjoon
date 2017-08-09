@@ -3,9 +3,9 @@ package T9663;
 import java.util.Scanner;
 
 public class Main {
-    static int[][] map;
     static int cnt = 0;
     static int N;
+    static int[] cols;
 
     // queen : 1, attackavailable : 2.
     public static void main(String[] args)
@@ -13,33 +13,38 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         N = sc.nextInt();
-
-        map = new int[N][N];
+        cols = new int[N];
         queen(0);
 
-        for (int i = 0; i < N; i++)
+        System.out.println(cnt);
+    }
+
+    public static void queen(int index)
+    {
+        if (index == N)
         {
-            for (int j = 0; j < N; j++)
+            cnt++;
+        }
+        else
+        {
+            for (int i = 0; i < N; i++)
             {
-                System.out.print(map[i][j] + " ");
+                cols[index] = i;
+                if (isPossible(index))
+                {
+                    queen(index+1);
+                }
             }
-            System.out.println();
         }
     }
 
-    public static void queen(int cursor)
+    public static boolean isPossible(int index)
     {
-        for (int i = 0; i < N; i++)
+        for (int i = 0; i < index; i++)
         {
-            for (int j = 0; j < N; j++)
-            {
-
-            }
+            if (cols[index] == cols[i]) return false;
+            if (Math.abs(index-i)== Math.abs(cols[index]-cols[i])) return false;
         }
-    }
-
-    public static void isPossible(int cursor)
-    {
-        for (int i = 0; i <= )
+        return true;
     }
 }
